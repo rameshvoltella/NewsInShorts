@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_cell"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/folding_cell"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        app:backSideColor="@color/bgBackSideColor">
+
+        <RelativeLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bgContent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_unfolded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:background="@drawable/happy"
+                android:layout_below="@+id/tv_title_unfolded" />
+
+            <TextView
+                android:id="@+id/tv_title_unfolded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgContentTop"
+                android:textColor="@color/titleBadgeText"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_description_unfolded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_below="@+id/iv_unfolded"
+                android:layout_marginTop="5dp"
+                android:background="@color/bgContent"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_fullstory_unfolded_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_description_unfolded"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/bgContent"
+                android:lines="1"
+                android:text="Read full story"
+                android:textColor="#00ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_fullstory_unfolded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_description_unfolded"
+                android:layout_marginTop="5dp"
+                android:background="@color/btnRequest"
+                android:text="Read full story"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_time_unfolded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_description_unfolded"
+                android:layout_marginTop="5dp"
+                android:background="@color/bgContent"
+                android:text="TIme"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        ​
+
+        <RelativeLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgContent">
+
+            <TextView
+                android:id="@+id/tv_title_folded"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/bgContentTop"
+                android:gravity="center"
+                android:lines="1"
+                android:text=""
+                android:textColor="@color/titleBadgeText"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/iv_folded"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/tv_title_folded"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/off" />
+            <!--android:layout_below="@+id/tv_title_folded"-->
+
+            <TextView
+                android:id="@+id/tv_description_folded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title_folded"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/iv_folded"
+                android:lines="4"
+                android:text="Tesla says it told regulators about the May 7th crash involving one of its electric cars in self-driving Autopilot mode nine days after the incident, adding that there was nothing unusual in either that delay or its decision to keep quiet about the incide"
+                android:textSize="16dp" />
+        </RelativeLayout>
+        ​
+    </com.ramotion.foldingcell.FoldingCell>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp" />
+</RelativeLayout>
+
