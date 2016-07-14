@@ -6,7 +6,13 @@
     android:layout_height="match_parent">
 
 
-
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:id="@+id/cv"
+        app:cardBackgroundColor="#594691"
+        android:minWidth="5dp"
+        app:cardCornerRadius="10dp"
+        android:layout_height="match_parent">
     <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/folding_cell"
         android:layout_width="match_parent"
@@ -24,8 +30,8 @@
             <ImageView
                 android:id="@+id/iv_unfolded"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
                 android:background="@drawable/happy"
                 android:layout_below="@+id/tv_title_unfolded" />
 
@@ -111,8 +117,9 @@
                 android:id="@+id/iv_folded"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:background="@color/bgContent"
                 android:layout_below="@+id/tv_title_folded"
-                android:layout_marginTop="5dp"
                 android:src="@drawable/off" />
             <!--android:layout_below="@+id/tv_title_folded"-->
 
@@ -127,9 +134,12 @@
                 android:lines="4"
                 android:text="Tesla says it told regulators about the May 7th crash involving one of its electric cars in self-driving Autopilot mode nine days after the incident, adding that there was nothing unusual in either that delay or its decision to keep quiet about the incide"
                 android:textSize="16dp" />
+
         </RelativeLayout>
         ​
     </com.ramotion.foldingcell.FoldingCell>
+
+    </android.support.v7.widget.CardView>
 
     <ProgressBar
         android:id="@+id/progressbar"

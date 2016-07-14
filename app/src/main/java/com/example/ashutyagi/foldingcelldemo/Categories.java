@@ -26,7 +26,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Categories extends AppCompatActivity {
     RecyclerView recyclerViewCategories;
-    List<CategoryTable> list = new ArrayList<>();
+    ArrayList<CategoryTable> list1 = new ArrayList<>();
+    ArrayList<Integer> list;
     FloatingActionButton fab;
     CategoriesAdapter adapter;
     @Override
@@ -39,7 +40,6 @@ public class Categories extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Integer> list;
                 int i=1;
                 list = adapter.idlist;
                 Log.d("SIZE", String.valueOf(list.size()));
@@ -76,10 +76,10 @@ public class Categories extends AppCompatActivity {
                     CategoryTable table = new CategoryTable();
                     table.setTitle(""+response.body().get(i).getTitle());
                     table.setId(response.body().get(i).getId());
-                    list.add(table);
+                    list1.add(table);
                     Log.d("CATEGORY", String.valueOf(response.body().get(i).getId()));
                 }
-                adapter = new CategoriesAdapter(Categories.this, list);
+                adapter = new CategoriesAdapter(Categories.this, list1);
                 recyclerViewCategories.setAdapter(adapter);
             }
 
@@ -118,4 +118,10 @@ public class Categories extends AppCompatActivity {
     }
 
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        
+    }
 }

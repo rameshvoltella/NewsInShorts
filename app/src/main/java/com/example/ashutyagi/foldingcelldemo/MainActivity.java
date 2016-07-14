@@ -1,6 +1,11 @@
 package com.example.ashutyagi.foldingcelldemo;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -22,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements Callback<StoryResponse> {
     RecyclerView recyclerView;
+    CardView cardView;
     ArrayList<CellTable> list = new ArrayList<>();
     ArrayList<CellTable> list1 = new ArrayList<>();
     FloatingActionButton fabShare;
@@ -31,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Callback<StoryRes
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final Activity activity = (MainActivity) this;
         fabShare = (FloatingActionButton) findViewById(R.id.fab_more);
         if (CheckNetwork.isInternetAvailable(MainActivity.this)) //returns true if internet available
         {
@@ -51,6 +63,15 @@ public class MainActivity extends AppCompatActivity implements Callback<StoryRes
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        cardView = (CardView)findViewById(R.id.cv);
+        fabShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap bitmap = takeScreenShot(activity);
+                saveBitmap(bitmap);
+                shareImage((new File(Environment.getExternalStorageDirectory()+ "/screenshot.png")));
+            }
+        });
         Intent intent = getIntent();
         int i = intent.getIntExtra("CHECK", 0);
         ArrayList<Integer> list = (ArrayList<Integer>) intent.getSerializableExtra("FINAL_CATEGORIES");
@@ -198,6 +219,55 @@ public class MainActivity extends AppCompatActivity implements Callback<StoryRes
         t.getMessage();
         t.printStackTrace();
 
+    }
+    private static Bitmap takeScreenShot(Activity activity) {
+        View view = activity.getWindow().getDecorView();
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+        Bitmap b1 = view.getDrawingCache();
+        Rect frame = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        int statusBarHeight = frame.top;
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        int height = activity.getWindowManager().getDefaultDisplay()
+                .getHeight();
+
+        Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height
+                - statusBarHeight);
+        view.destroyDrawingCache();
+        Log.e("Screenshot", "taken successfully");
+        return b;
+
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        File imagePath = new File(Environment.getExternalStorageDirectory()
+                + "/screenshot.png");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(imagePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            Log.e("Screenshot", "saved successfully");
+
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.e("GREC", e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("GREC", e.getMessage(), e);
+        }
+
+    }
+    private void shareImage(File file){
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Share Screenshot"));
     }
 
 }
